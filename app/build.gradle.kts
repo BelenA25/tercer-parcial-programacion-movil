@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.hilt.navigation)
     kapt(libs.hilt.compiler)
 
+    implementation(libs.coil)
 
     implementation(project(":domain"))
     implementation(project(":data"))

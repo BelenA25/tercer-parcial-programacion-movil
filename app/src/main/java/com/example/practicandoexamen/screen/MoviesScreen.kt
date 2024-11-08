@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.example.domain.Movie
 import com.example.practicandoexamen.viewmodel.MovieViewModel
 
@@ -84,6 +85,20 @@ fun MoviesScreenContent(modifier: Modifier, onClick: (String) -> Unit, movieView
     Column(
         modifier = modifier.fillMaxSize()
     ) {
+        Button(
+            onClick = {
+                if(isConexion(localContext)) {
+                    Toast.makeText(localContext, "Tiene acceso a internet", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(localContext, "No tiene acceso a internet", Toast.LENGTH_LONG).show()
+                }
+
+            }
+        ) {
+            Text(
+                text = "Verify Internet Connection"
+            )
+        }
         Text( text = "Peliculas Populares")
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -99,6 +114,12 @@ fun MoviesScreenContent(modifier: Modifier, onClick: (String) -> Unit, movieView
                         onClick(listOfMovies[it].id.toString())
                     }
                 ) {
+                    AsyncImage(
+                        model = "https://image.tmdb.org/t/p/w500${listOfMovies[it].posterPath}", // URL dinámica usando posterPath
+                        contentDescription = listOfMovies[it].title,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
                     Text(
                         text = "${listOfMovies[it].title}",
                         modifier = Modifier
@@ -107,20 +128,6 @@ fun MoviesScreenContent(modifier: Modifier, onClick: (String) -> Unit, movieView
                     )
                 }
             }
-        }
-        Button(
-            onClick = {
-                if(isConexion(localContext)) {
-                    Toast.makeText(localContext, "Tiene acceso a internet", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(localContext, "No tiene acceso a internet", Toast.LENGTH_LONG).show()
-                }
-
-            }
-        ) {
-            Text(
-                text = "Verify Internet Connection"
-            )
         }
     }
 }
