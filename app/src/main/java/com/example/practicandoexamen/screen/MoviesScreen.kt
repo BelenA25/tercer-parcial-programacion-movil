@@ -8,6 +8,7 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -68,10 +70,15 @@ fun MoviesScreenContent(modifier: Modifier, onClick: (String) -> Unit, movieView
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CircularProgressIndicator()
+                Box(
+                    modifier = modifier.fillMaxSize()
+                ){
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .padding(16.dp))
+                }
+
             }
-
-
         }
         is MovieViewModel.MovieState.Error -> {
             Toast.makeText(context, "Error ${(movieState as MovieViewModel.MovieState.Error).errorMessage}", Toast.LENGTH_SHORT).show()
@@ -83,8 +90,17 @@ fun MoviesScreenContent(modifier: Modifier, onClick: (String) -> Unit, movieView
 
 
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
+
+        Text(
+            text = "Peliculas Populares",
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier.padding(bottom = 16.dp),
+            textAlign = TextAlign.Center
+        )
         Button(
             onClick = {
                 if(isConexion(localContext)) {
@@ -96,10 +112,9 @@ fun MoviesScreenContent(modifier: Modifier, onClick: (String) -> Unit, movieView
             }
         ) {
             Text(
-                text = "Verify Internet Connection"
+                text = "Verificar Conexion a Internet"
             )
         }
-        Text( text = "Peliculas Populares")
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(16.dp),

@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.practicandoexamen.navigation.AppNavigation
-import com.example.practicandoexamen.ui.theme.PracticandoExamenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
